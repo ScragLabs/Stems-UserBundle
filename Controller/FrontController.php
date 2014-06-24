@@ -92,7 +92,13 @@ class FrontController extends Controller
 						$em->flush();
 
 						$request->getSession()->setFlash('success', 'Your account has been successfully created!');
-						return $this->redirect($request->headers->get('referrer'));
+
+						// redirect to the homepage if we don't have a referrer (can happen)
+						if ($request->headers->get('referrer')) {
+							return $this->redirect($request->headers->get('referrer'));
+						} else {
+							return $this->redirect('/login');
+						}
 					}
 				} 
 				
