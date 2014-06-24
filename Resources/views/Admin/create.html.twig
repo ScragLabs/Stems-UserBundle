@@ -1,0 +1,25 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Create Account{% endblock %}
+
+{% block content %}
+	<h1 class="pages">Create Account</h1>
+	<form method="post">
+		<div class="admin-editor">
+			{{ form_row(form.email) }}
+			<div class="left-panel">
+				{{ form_row(form.password) }}
+				{{ form_row(form.confirmation) }}
+			</div>
+			<div class="right-panel">
+				{{ form_row(form.forname) }}
+				{{ form_row(form.surname) }}
+			</div>
+			<br class="clear">
+		</div>
+		<div class="admin-editor-controls">
+			<input class="btn btn-success" type="submit" value="Create Account">
+			<a href="{{ path('stems_admin_user_overview') }}"class="btn" >Cancel</a>
+		</div>
+	</form>
+{% endblock %}

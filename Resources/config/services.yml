@@ -1,0 +1,8 @@
+parameters:
+   stems.user.min_password_length: 8
+   stems.user.alphanumeric_password_only: true
+
+services:
+    stems.user.management:
+        class: 		Stems\UserBundle\Service\Management
+        arguments:	["%stems.user.min_password_length%", "%stems.user.alphanumeric_password_only%"]

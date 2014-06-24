@@ -1,0 +1,18 @@
+{% extends 'StemsPageBundle:Layout:' ~ page.layout.slug ~ '.html.twig' %}
+
+{% import 'StemsCoreBundle:Macro:core.html.twig' as macros %}
+
+{% block breadcrumbs %}<a href="{{ path('stems_front_user_account') }}">Account</a> › <a href="{{ path('stems_front_user_login') }}">Login</a>{% endblock %}
+
+{% block dynamic %}
+	 <div class="login">
+		<form action="/login_check" class="small-form" method="post">
+			<input type="text" id="username" name="_username" placeholder="Email Address" /><br />
+			<input type="password" id="password" name="_password"  placeholder="Password" /><br />
+			<input type="hidden" name="_target_path" value="{{ app.request.headers.get('referer') }}" />
+			<input type="submit" value="Sign In" class="form-button no-icon"/>
+			<p>Not registered? <a href="/register">Click here</a> to create an account.</p>
+		</form>
+	 </div><!--login-->
+	 <br class="clear">
+{% endblock %}

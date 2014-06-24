@@ -1,0 +1,58 @@
+# Admin routes
+
+stems_admin_user_overview:
+    pattern:  /admin/users
+    defaults: { _controller: StemsUserBundle:Admin:index }
+
+stems_admin_user_create:
+    pattern:  /admin/users/create
+    defaults: { _controller: StemsUserBundle:Admin:create }
+
+stems_admin_user_edit:
+    pattern:  /admin/users/{id}/edit
+    defaults: { _controller: StemsUserBundle:Admin:edit }
+
+stems_admin_user_delete:
+    pattern:  /admin/users/{id}/delete
+    defaults: { _controller: StemsUserBundle:Admin:delete }
+
+stems_admin_user_deactivate:
+    pattern:  /admin/users/{id}/deactivate
+    defaults: { _controller: StemsUserBundle:Admin:deactivate }
+
+stems_admin_user_activate:
+    pattern:  /admin/users/{id}/activate
+    defaults: { _controller: StemsUserBundle:Admin:activate }
+
+# Front-end routes
+
+stems_front_user_login:
+    pattern: /login 
+    defaults: { _controller: StemsUserBundle:Front:login }
+
+stems_front_user_login_check:
+    pattern: /login_check
+
+stems_front_user_logout:
+    pattern: /logout
+    defaults: { _controller: StemsUserBundle:Front:logout }
+
+stems_front_user_register:
+    pattern: /register 
+    defaults: { _controller: StemsUserBundle:Front:register }
+
+stems_front_user_confirm_registration:
+    pattern: /confirm-registration/{token}
+    defaults: { _controller: StemsUserBundle:Front:confirmRegistration }
+
+stems_front_user_account:
+    pattern: /account 
+    defaults: { _controller: StemsUserBundle:Front:account }
+
+stems_front_user_update_account:
+    pattern: /account/update-details
+    defaults: { _controller: StemsUserBundle:Front:updateDetails }
+
+stems_front_user_change_password:
+    pattern: /account/change-password
+    defaults: { _controller: StemsUserBundle:Front:changePassword }

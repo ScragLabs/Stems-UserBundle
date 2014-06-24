@@ -1,0 +1,20 @@
+{% extends 'StemsPageBundle:Layout:' ~ page.layout.slug ~ '.html.twig' %}
+
+{% import 'StemsCoreBundle:Macro:core.html.twig' as macros %}
+
+{% block breadcrumbs %}<a href="{{ path('stems_front_user_account') }}">Account</a> › <a href="{{ path('stems_front_user_register') }}">Register</a>{% endblock %}
+
+{% block dynamic %}
+	<form class="full-form" method="post">
+		{{ form_row(form.fullname) }}
+		{{ form_row(form.email) }}
+		{{ form_row(form.emailConfirmation) }}
+		{{ form_row(form.password) }}
+		{{ form_row(form.passwordConfirmation) }}
+		<input type="submit" value="Register" class="form-button no-icon"/>
+		{{ form_widget(form._token) }}
+	</form>
+{% endblock %}
+
+
+

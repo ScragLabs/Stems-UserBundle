@@ -1,0 +1,22 @@
+{% extends 'StemsPageBundle:Layout:' ~ page.layout.slug ~ '.html.twig' %}
+
+{% import 'StemsCoreBundle:Macro:core.html.twig' as macros %}
+
+{% block breadcrumbs %}<a href="{{ path('stems_front_user_account') }}">Account</a>{% endblock %}
+
+{% block dynamic %}
+	<div class="dashboard-panel">
+		<a href="{{ path('stems_front_user_update_account') }}" class="panel-item">
+			<h3>Account Details</h3>
+			<p>Update your account details, such as your display name.</p>
+		</a>
+		<a href="{{ path('stems_front_user_change_password') }}" class="panel-item">
+			<h3>Change Password</h3>
+			<p>Change your password.</p>
+		</a>
+{# 		<a class="panel-item">
+			<h3>Alert &amp; Email Settings</h3>
+			<p>Change when you receive alerts and e-mails from us.</p>
+		</a> #}
+	</div>
+{% endblock %}
