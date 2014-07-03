@@ -2,6 +2,9 @@
 
 namespace Stems\UserBundle\Service;
 
+use Symfony\Bundle\TwigBundle\TwigEngine;
+use Doctrine\ORM\EntityManager;
+
 class Management
 {
 	// Config options for user management
@@ -19,12 +22,16 @@ class Management
 	// The mailer service
 	protected $mailer;
 
-	public function __construct($factory, $em, $mailer, $options)
+	// The mailer service
+	protected $twig;
+
+	public function __construct($factory, EntityManager $em, $mailer, TwigEngine $twig, $options)
 	{
 		$this->options = $options;
 		$this->factory = $factory;
 		$this->em = $em;
 		$this->mailer = $mailer;
+		$this->twig = $twig;
 	}
 
 	/**
@@ -96,11 +103,12 @@ class Management
 		// send the welcome e-mail
 		if ($this->options['account_creation']['welcome_email']) {
 			$message = \Swift_Message::newInstance()
+				->setContentType('text/html')
 				->setSubject('Welcome to Thread & Mirror')
-				->setFrom('notify@threadandmirror.com')
-				->setTo($user->getEmail())
+				->setFrom(array('notify@threadandmirror.com' => 'Thread & Mirror'))
+				->setTo(array($user->getEmail() => $user->getFullname()))
 				->setBody(
-					$this->twig->renderView(
+					$this->twig->render(
 					    'StemsUserBundle:Email:welcome.html.twig',
 					    array('user' => $user)
 					)

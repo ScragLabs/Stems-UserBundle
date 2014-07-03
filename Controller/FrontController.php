@@ -91,7 +91,7 @@ class FrontController extends Controller
 						$em->persist($wishlist);
 						$em->flush();
 
-						$request->getSession()->setFlash('success', 'Your account has been successfully created!');
+						$request->getSession()->setFlash('success', 'Your account has been successfully created! You can now sign in.');
 
 						// redirect to the homepage if we don't have a referrer (can happen)
 						if ($request->headers->get('referrer')) {
