@@ -96,14 +96,14 @@ class Management
 		// send the welcome e-mail
 		if ($this->options['account_creation']['welcome_email']) {
 			$message = \Swift_Message::newInstance()
-				->setSubject('Welcome to Thread and Mirror')
-				->setFrom('noreply@threadandmirror.com')
+				->setSubject('Welcome to Thread & Mirror')
+				->setFrom('notify@threadandmirror.com')
 				->setTo($user->getEmail())
-				->setBody('Welcome to Thread and Mirror.'
-					// $this->twig->renderView(
-					//     'StemsUserBundle:Email:welcome.html.twig',
-					//     array('user' => $user)
-					// )
+				->setBody(
+					$this->twig->renderView(
+					    'StemsUserBundle:Email:welcome.html.twig',
+					    array('user' => $user)
+					)
 				)
 			;
 			$this->mailer->send($message);
