@@ -1,0 +1,23 @@
+<style>
+
+h1 {
+	font-size: 18px;
+	border-bottom: 1px dotted #DDDDDD;
+	padding-bottom: 10px;
+}
+
+p {
+	margin-bottom: 10px !important;
+}
+
+hr {
+	border: none;
+	border-bottom: 1px dotted #DDDDDD;
+}
+
+</style>
+<h1>{% block title %}Mailer Title{% endblock %}</h1>
+<br>
+{% block body %}<p>Mailer Body</p>{% endblock %}
+{% block signature %}<p><b>Thread &amp; Mirror</b></p>{% endblock %}
+<hr>

@@ -1,10 +1,9 @@
-{% embed 'StemsUserBundle:Email:stylesheet.html.twig' %}{% endembed %}
+{% extends 'StemsUserBundle:Email:base.html.twig' %}
 
-<h1>Welcome to Thread &amp; Mirror, {{ user.fullname }}</h1>
-<br>
-<p>You can now <a href="http://www.threadandmirror.com/login">sign in</a> to your new account and enjoy the benefits of being a registered user, such as your own personal wishlist and email alerts for sales and back-in-stock items.</p>
+{% block title %}Welcome to Thread &amp; Mirror, {{ user.fullname }}{% endblock %}
 
-<p>If you have an questions, feel free to e-mail us at <a href="mailto:info@threadandmirror.com">info@threadandmirror.com</a> and we'll be happy to answer.</p>
+{% block body %}
+	<p>You can now <a href="http://www.threadandmirror.com/login">sign in</a> to your new account and enjoy the benefits of being a registered user, such as your own personal wishlist and email alerts for sales and back-in-stock items.</p>
 
-<p><b>Thread &amp; Mirror</b></p>
-<hr>
+	<p>If you have an questions, feel free to e-mail us at <a href="mailto:info@threadandmirror.com">info@threadandmirror.com</a> and we'll be happy to answer.</p>
+{% endblock %}
