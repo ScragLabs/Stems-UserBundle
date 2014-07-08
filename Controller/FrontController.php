@@ -20,6 +20,16 @@ class FrontController extends Controller
 {
 	public function loginAction(Request $request)
 	{
+		// redirect to previous page if already logged in
+		if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+			// redirect to the accounts page if we don't have a referrer or if the referrer is somehow this page
+			if ($request->headers->get('referrer') && $request->headers->get('referrer') != '/login') {
+				return $this->redirect($request->headers->get('referrer'));
+			} else {
+				return $this->redirect('/account');
+			}
+		}
+						
 		$session = $request->getSession();
 
 		// load the page for the template
