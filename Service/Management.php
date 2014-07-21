@@ -103,10 +103,10 @@ class Management
 		// send the welcome e-mail
 		if ($this->options['account_creation']['welcome_email']) {
 			$message = \Swift_Message::newInstance()
-				->setContentType('text/html')
 				->setSubject('Welcome to Thread & Mirror')
 				->setFrom(array('notify@threadandmirror.com' => 'Thread & Mirror'))
 				->setTo(array($user->getEmail() => $user->getFullname()))
+				->setContentType('text/html')
 				->setBody(
 					$this->twig->render(
 					    'StemsUserBundle:Email:welcome.html.twig',
