@@ -14,8 +14,8 @@ use Stems\UserBundle\Form\AdminUserType;
 
 // Entities
 use Stems\UserBundle\Entity\User,
-	Stems\SaleSirenBundle\Entity\Profile,
-	Stems\SaleSirenBundle\Entity\Wishlist;
+	ThreadAndMirror\ProductsBundle\Entity\Profile,
+	ThreadAndMirror\ProductsBundle\Entity\Wishlist;
 
 // Exceptions
 use Doctrine\ORM\NoResultException;

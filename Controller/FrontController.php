@@ -9,8 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
 	Symfony\Component\HttpFoundation\Request;
 
 use Stems\UserBundle\Entity\User,
-	Stems\SaleSirenBundle\Entity\Profile,
-	Stems\SaleSirenBundle\Entity\Wishlist;
+	ThreadAndMirror\ProductsBundle\Entity\Profile,
+	ThreadAndMirror\ProductsBundle\Entity\Wishlist;
 
 use Stems\UserBundle\Form\RegistrationType,
 	Stems\UserBundle\Form\UpdateAccountType,
