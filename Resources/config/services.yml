@@ -1,8 +1,14 @@
-parameters:
-   stems.user.min_password_length: 8
-   stems.user.alphanumeric_password_only: true
-
 services:
     stems.user.management:
-        class: 		Stems\UserBundle\Service\Management
-        arguments:	["%stems.user.min_password_length%", "%stems.user.alphanumeric_password_only%"]
+        class:      Stems\UserBundle\Service\Management
+        arguments:
+            factory:     "@security.encoder_factory"
+            em:          "@doctrine.orm.entity_manager"
+            mailer:      "@mailer"
+            twig:        "@templating"
+            options:
+                password_validation:
+                    min_length:      "%stems.user.min_password_length%"
+                    is_alphanumeric: "%stems.user.alphanumeric_password_only%"
+                account_creation:
+                    welcome_email: true
