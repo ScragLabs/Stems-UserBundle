@@ -1,7 +1,17 @@
 parameters:
-   stems.user.min_password_length: 8
-   stems.user.max_password_length: false
-   stems.user.alphanumeric_password_only: false
-   stems.user.password_require_number: false
-   stems.user.password_require_symbol: false
-   stems.user.password_require_capital: false
+
+    # Bundle specific
+    stems.user.min_password_length: 8
+    stems.user.max_password_length: false
+    stems.user.alphanumeric_password_only: false
+    stems.user.password_require_number: false
+    stems.user.password_require_symbol: false
+    stems.user.password_require_capital: false
+
+    # Admin menu items
+    stems.admin.menu_config_stemsuserbundle:
+        stems_user:
+            title: 'Users'
+            route: 'stems_admin_user_overview'
+            icon: 'fa fa-group'
+            children: []
