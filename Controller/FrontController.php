@@ -3,7 +3,7 @@
 namespace Stems\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller,
-	Symfony\Component\Security\Core\SecurityContext,
+	Symfony\Component\Security\Core\SecurityContextInterface,
 	Symfony\Component\HttpFoundation\RedirectResponse,
 	Symfony\Component\HttpFoundation\Response,
 	Symfony\Component\HttpFoundation\Request;
@@ -20,9 +20,9 @@ class FrontController extends Controller
 {
 	public function loginAction(Request $request)
 	{
-		// redirect to previous page if already logged in
+		// Redirect to previous page if already logged in
 		if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-			// redirect to the accounts page if we don't have a referrer or if the referrer is somehow this page
+			// Redirect to the accounts page if we don't have a referrer or if the referrer is somehow this page
 			if ($request->headers->get('referrer') && $request->headers->get('referrer') != '/login') {
 				return $this->redirect($request->headers->get('referrer'));
 			} else {
@@ -31,26 +31,25 @@ class FrontController extends Controller
 		}
 						
 		$session = $request->getSession();
-
-		// load the page for the template
+		$session->getFlashBag()->set('error', 'test');
+		// Load the page for the template
 		$em = $this->getDoctrine()->getManager();
 		$page = $em->getRepository('StemsPageBundle:Page')->load('login');
 
-		// get the login error if there is one
-		if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+		// Get the login error if there is one
+		if ($request->attributes->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
 			$error = $request->attributes->get(
-				SecurityContext::AUTHENTICATION_ERROR
+				SecurityContextInterface::AUTHENTICATION_ERROR
 			);
-			$error and $request->getSession()->setFlash('error', 'Login Failed: '.$error->getMessage());
+			$error and $session->getFlashBag()->set('error', 'Login Failed: '.$error->getMessage());
 		} else {
-			$error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
-			$session->remove(SecurityContext::AUTHENTICATION_ERROR);
-			$error and $request->getSession()->setFlash('error', 'Login Failed: '.$error->getMessage());
+			$error = $session->get(SecurityContextInterface::AUTHENTICATION_ERROR);
+			$session->remove(SecurityContextInterface::AUTHENTICATION_ERROR);
+			$error and $session->getFlashBag()->set('error', 'Login Failed: '.$error->getMessage());
 		}
 
 		return $this->render('StemsUserBundle:Front:login.html.twig', array(
-			// last username entered by the user
-			'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+			'last_username' => $session->get(SecurityContextInterface::LAST_USERNAME),
 			'page'			=> $page,
 		));
 	}
@@ -80,7 +79,7 @@ class FrontController extends Controller
 		if ($request->getMethod() == 'POST') {
 
 			// validate the submitted values
-			$form->bindRequest($request);
+			$form->bind($request);
 
 			if ($form->isValid()) {
 
@@ -101,7 +100,7 @@ class FrontController extends Controller
 						$em->persist($wishlist);
 						$em->flush();
 
-						$request->getSession()->setFlash('success', 'Your account has been successfully created! You can now sign in.');
+						$request->getSession()->getFlashBag()->set('success', 'Your account has been successfully created! You can now sign in.');
 
 						// redirect to the homepage if we don't have a referrer (can happen)
 						if ($request->headers->get('referrer')) {
@@ -112,9 +111,9 @@ class FrontController extends Controller
 					}
 				} 
 				
-				$request->getSession()->setFlash('error', $userManager->getMessage());
+				$request->getSession()->getFlashBag()->set('error', $userManager->getMessage());
 			} else {
-				$request->getSession()->setFlash('error', 'You have not entered your name.');
+				$request->getSession()->getFlashBag()->set('error', 'You have not entered your name.');
 			}
 		}
 
@@ -158,7 +157,7 @@ class FrontController extends Controller
 		if ($request->getMethod() == 'POST') {
 
 			// validate the submitted values
-			$form->bindRequest($request);
+			$form->bind($request);
 
 			if ($form->isValid()) {
 
@@ -166,11 +165,11 @@ class FrontController extends Controller
 				$em->persist($user);
 				$em->flush();
 
-				$request->getSession()->setFlash('success', 'Your profile has been successfully updated!');
+				$request->getSession()->getFlashBag()->set('success', 'Your profile has been successfully updated!');
 				return $this->redirect('/account');
 
 			} else {
-				$request->getSession()->setFlash('error', 'The was a problem updating your details...');
+				$request->getSession()->getFlashBag()->set('error', 'The was a problem updating your details...');
 			}
 		}
 
@@ -200,7 +199,7 @@ class FrontController extends Controller
 		if ($request->getMethod() == 'POST') {
 
 			// validate the submitted values
-			$form->bindRequest($request);
+			$form->bind($request);
 
 			// validate the password
 			if ($userManager->validateNewPassword($user->getPassword(), $user->getPasswordConfirmation())) {
@@ -210,11 +209,11 @@ class FrontController extends Controller
 				$em->persist($user);
 				$em->flush();
 
-				$request->getSession()->setFlash('success', 'Your password has been successfully changed!');
+				$request->getSession()->getFlashBag()->set('success', 'Your password has been successfully changed!');
 				return $this->redirect('/account');
 			}
 			
-			$request->getSession()->setFlash('error', $userManager->getMessage());
+			$request->getSession()->getFlashBag()->set('error', $userManager->getMessage());
 		}
 
 		return $this->render('StemsUserBundle:Front:changePassword.html.twig', array(

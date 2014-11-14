@@ -55,7 +55,7 @@ class AdminController extends BaseAdminController
 		if ($request->getMethod() == 'POST') {
 
 			// validate the submitted values
-			$form->bindRequest($request);
+			$form->bind($request);
 
 			//if ($form->isValid()) {	
 
@@ -76,12 +76,12 @@ class AdminController extends BaseAdminController
 						$em->persist($wishlist);
 						$em->flush();
 
-						$request->getSession()->setFlash('success', 'The user account for '.$user->getEmail().' has been created.');
+						$request->getSession()->getFlashBag()->set('success', 'The user account for '.$user->getEmail().' has been created.');
 						return $this->redirect($this->generateUrl($this->home));
 					}
 				} 
 				
-				$request->getSession()->setFlash('error', $userManager->getMessage());
+				$request->getSession()->getFlashBag()->set('error', $userManager->getMessage());
 
 			//}
 		}
@@ -107,7 +107,7 @@ class AdminController extends BaseAdminController
 
 		// throw an exception if the user could not be found
 		if (!$user) {
-			$request->getSession()->setFlash('error', 'The requested user could not be found.');
+			$request->getSession()->getFlashBag()->set('error', 'The requested user could not be found.');
 			return $this->redirect($this->generateUrl($this->home));
 		}
 
@@ -115,7 +115,7 @@ class AdminController extends BaseAdminController
 		if ($request->getMethod() == 'POST') {
 
 			// validate the submitted values
-			$form->bindRequest($request);
+			$form->bind($request);
 
 			//if ($form->isValid()) {
 
@@ -129,12 +129,12 @@ class AdminController extends BaseAdminController
 					$em->persist($user);
 					$em->flush();
 
-					$request->getSession()->setFlash('success', 'The user account for '.$user->getEmail().' has been created.');
+					$request->getSession()->getFlashBag()->set('success', 'The user account for '.$user->getEmail().' has been created.');
 					return $this->redirect($this->generateUrl($this->home));
 
 				} else {
-					$request->getSession()->setFlash('error', $userManager->getMessage());
-				// 	$request->getSession()->setFlash('debug', '');
+					$request->getSession()->getFlashBag()->set('error', $userManager->getMessage());
+				// 	$request->getSession()->getFlashBag()->set('debug', '');
 				}
 			//}
 		}
@@ -162,9 +162,9 @@ class AdminController extends BaseAdminController
 			$em->flush();
 
 			// return the success message
-			$request->getSession()->setFlash('success', 'The user "'.$name.'" was successfully deleted!');
+			$request->getSession()->getFlashBag()->set('success', 'The user "'.$name.'" was successfully deleted!');
 		} else {
-			$request->getSession()->setFlash('error', 'The requested user could not be deleted as it does not exist in the database.');
+			$request->getSession()->getFlashBag()->set('error', 'The requested user could not be deleted as it does not exist in the database.');
 		}
 
 		return $this->redirect($this->generateUrl($this->home));
@@ -184,14 +184,14 @@ class AdminController extends BaseAdminController
 			if ($user->getActive() == true) {	
 				$user->setActive(false);
 				$user->setUpdated(new \DateTime());
-				$request->getSession()->setFlash('success', 'The user "'.$user->getFullname().'" was successfully deactivated!');
+				$request->getSession()->getFlashBag()->set('success', 'The user "'.$user->getFullname().'" was successfully deactivated!');
 			}
 
 			$em->persist($user);
 			$em->flush();
 
 		} else {
-			$request->getSession()->setFlash('error', 'The request user could not be deactivated as it does not exist in the database.');
+			$request->getSession()->getFlashBag()->set('error', 'The request user could not be deactivated as it does not exist in the database.');
 		}
 
 		return $this->redirect($this->generateUrl($this->home));
@@ -211,14 +211,14 @@ class AdminController extends BaseAdminController
 			if ($user->getActive() == false) {
 				$user->setActive(true);
 				$user->setUpdated(new \DateTime());
-				$request->getSession()->setFlash('success', 'The user "'.$user->getFullname().'" was successfully activated!');
+				$request->getSession()->getFlashBag()->set('success', 'The user "'.$user->getFullname().'" was successfully activated!');
 			}
 
 			$em->persist($user);
 			$em->flush();
 
 		} else {
-			$request->getSession()->setFlash('error', 'The request user could not be activated as it does not exist in the database.');
+			$request->getSession()->getFlashBag()->set('error', 'The request user could not be activated as it does not exist in the database.');
 		}
 
 		return $this->redirect($this->generateUrl($this->home));
