@@ -31,7 +31,6 @@ class FrontController extends Controller
 		}
 						
 		$session = $request->getSession();
-		$session->getFlashBag()->set('error', 'test');
 		// Load the page for the template
 		$em = $this->getDoctrine()->getManager();
 		$page = $em->getRepository('StemsPageBundle:Page')->load('login');
